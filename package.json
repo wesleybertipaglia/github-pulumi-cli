@@ -5,15 +5,17 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts"
+    "dev": "ts-node src/index.ts",
+    "list": "ts-node src/index.ts list"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "Github Pulumi CLI is a command line interface for managing GitHub resources using Pulumi",
+  "description": "Github Pulumi is a command line interface for managing GitHub resources using Pulumi",
   "dependencies": {
     "@pulumi/esc-sdk": "^0.12.1",
     "commander": "^13.1.0",
+    "dotenv": "^16.4.7",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
