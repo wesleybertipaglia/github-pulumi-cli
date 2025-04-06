@@ -1,7 +1,10 @@
 import inquirer from "inquirer";
 
+/**
+ * Renders the main menu for the GitHub CLI application.
+ */
 export async function showMainMenu(): Promise<
-  "list" | "get" | "insights" | "exit"
+  "list" | "get" | "insights" | "create" | "exit"
 > {
   const { option } = await inquirer.prompt([
     {
@@ -12,6 +15,7 @@ export async function showMainMenu(): Promise<
         { name: "📦 List repositories", value: "list" },
         { name: "🔍 Get repository details", value: "get" },
         { name: "📊 View repository insights", value: "insights" },
+        { name: "➕ Create repository", value: "create" },
         { name: "❌ Exit", value: "exit" },
       ],
     },
@@ -20,14 +24,33 @@ export async function showMainMenu(): Promise<
   return option;
 }
 
+/**
+ * Prompts the user for repository name.
+ */
 export async function promptRepoName(): Promise<string> {
-  const { name } = await inquirer.prompt([
+  const { repository } = await inquirer.prompt([
     {
       type: "input",
-      name: "name",
+      name: "repository",
       message: "🔤 Enter the repository name:",
     },
   ]);
 
-  return name;
+  return repository;
+}
+
+/**
+ * Prompts the user for repository description.
+ */
+export async function promptRepoDescription(): Promise<string> {
+  const { description } = await inquirer.prompt([
+    {
+      type: "input",
+      name: "description",
+      message: "📝 Enter the repository description (optional):",
+      default: "",
+    },
+  ]);
+
+  return description;
 }

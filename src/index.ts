@@ -1,7 +1,16 @@
 import { Command } from "commander";
-import { listRepos, getRepoDetails, getRepoInsights } from "./github";
+import {
+  listRepos,
+  getRepoDetails,
+  getRepoInsights,
+  createRepo,
+} from "./github";
 import { loadGitHubToken } from "./pulumi";
-import { showMainMenu, promptRepoName } from "./views/menu";
+import {
+  showMainMenu,
+  promptRepoName,
+  promptRepoDescription,
+} from "./views/menu";
 
 const program = new Command();
 
@@ -9,22 +18,6 @@ program
   .name("github-pulumi")
   .description("CLI Tool to interact with GitHub using Pulumi ESC")
   .version("1.0.0");
-
-program
-  .command("list")
-  .description("List your GitHub repositories")
-  .action(async () => {
-    const token = await loadGitHubToken();
-    await listRepos(token);
-  });
-
-program
-  .command("get <name>")
-  .description("Get details of a specific GitHub repository by name")
-  .action(async (name: string) => {
-    const token = await loadGitHubToken();
-    await getRepoDetails(token, name);
-  });
 
 if (!process.argv.slice(2).length) {
   (async () => {
@@ -41,16 +34,24 @@ if (!process.argv.slice(2).length) {
           break;
 
         case "get": {
-          const name = await promptRepoName();
+          const repository = await promptRepoName();
           console.clear();
-          await getRepoDetails(token, name);
+          await getRepoDetails(token, repository);
           break;
         }
 
         case "insights": {
-          const name = await promptRepoName();
+          const repository = await promptRepoName();
           console.clear();
-          await getRepoInsights(token, name);
+          await getRepoInsights(token, repository);
+          break;
+        }
+
+        case "create": {
+          const repository = await promptRepoName();
+          console.clear();
+          const description = await promptRepoDescription();
+          await createRepo(token, repository, description);
           break;
         }
 
