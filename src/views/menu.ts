@@ -4,7 +4,7 @@ import inquirer from "inquirer";
  * Renders the main menu for the GitHub CLI application.
  */
 export async function showMainMenu(): Promise<
-  "list" | "get" | "insights" | "create" | "update" | "exit"
+  "list" | "get" | "insights" | "create" | "update" | "delete" | "exit"
 > {
   const { option } = await inquirer.prompt([
     {

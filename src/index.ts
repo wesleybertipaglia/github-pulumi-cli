@@ -5,6 +5,7 @@ import {
   getRepoInsights,
   createRepo,
   updateRepo,
+  deleteRepo,
 } from "./github";
 import { loadGitHubToken } from "./pulumi";
 import {
@@ -62,6 +63,13 @@ if (!process.argv.slice(2).length) {
           const newDescription = await promptRepoDescription(true);
           console.clear();
           await updateRepo(token, repository, newName, newDescription);
+          break;
+        }
+
+        case "delete": {
+          const repository = await promptRepoName();
+          console.clear();
+          await deleteRepo(token, repository);
           break;
         }
 

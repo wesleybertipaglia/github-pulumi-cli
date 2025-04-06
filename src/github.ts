@@ -182,3 +182,31 @@ export async function updateRepo(
   console.log(`✅ Repository updated to`);
   detailsView(updated);
 }
+
+/**
+ * Deletes a repository on GitHub.
+ *
+ * @param {string} token - The GitHub access token.
+ * @param {string} repository - The name of the repository to delete.
+ */
+export async function deleteRepo(token: string, repository: string) {
+  const owner = await getUsername(token);
+
+  const res = await fetch(
+    `https://api.github.com/repos/${owner}/${repository}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `token ${token}`,
+        "User-Agent": "github-cli",
+      },
+    }
+  );
+
+  if (!res.ok) {
+    console.error("❌ Failed to delete repository:", res.statusText);
+    return;
+  }
+
+  console.log(`✅ Repository '${repository}' deleted successfully.`);
+}
