@@ -5,7 +5,7 @@ import { loadGitHubToken } from "./pulumi";
 const program = new Command();
 
 program
-  .name("github-cli")
+  .name("github-pulumi")
   .description("CLI Tool to interact with GitHub using Pulumi ESC")
   .version("1.0.0");
 
