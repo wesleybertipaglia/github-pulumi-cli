@@ -1,7 +1,6 @@
 import fetch from "node-fetch";
-import { insightsView, listAll } from "./views/repository";
-import { detailsView } from "./views/repository";
-import { CreateDto, Repository, UpdateDto } from "./types/repository";
+import { Repository, CreateDto, UpdateDto } from "../types/repository.types";
+import { listAll, detailsView, insightsView } from "../views/repository.views";
 
 let cachedUsername: string | null = null;
 

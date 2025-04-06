@@ -3,20 +3,41 @@ import inquirer from "inquirer";
 /**
  * Renders the main menu for the GitHub CLI application.
  */
-export async function showMainMenu(): Promise<
-  "list" | "get" | "insights" | "create" | "update" | "delete" | "exit"
+export async function showMainMenu(): Promise<"repository" | "exit"> {
+  const { option } = await inquirer.prompt([
+    {
+      type: "list",
+      name: "option",
+      message: "📚 Main Menu - Choose an action",
+      choices: [
+        { name: "📦 Repositories options", value: "repository" },
+        { name: "❌ Exit", value: "exit" },
+      ],
+    },
+  ]);
+
+  return option;
+}
+
+/**
+ * Renders the repository menu for the GitHub CLI application.
+ */
+export async function showRepositoryMenu(): Promise<
+  "list" | "get" | "insights" | "create" | "update" | "delete" | "back" | "exit"
 > {
   const { option } = await inquirer.prompt([
     {
       type: "list",
       name: "option",
-      message: "📚 GitHub CLI Menu - Choose an action",
+      message: "📦 Repositoru Menu - Choose an action",
       choices: [
-        { name: "📦 List repositories", value: "list" },
+        { name: "🗃️ List repositories", value: "list" },
         { name: "🔍 Get repository details", value: "get" },
         { name: "📊 View repository insights", value: "insights" },
         { name: "📄 Create repository", value: "create" },
         { name: "✏️ Update repository", value: "update" },
+        { name: "🗑️ Delete repository", value: "delete" },
+        { name: "🔙 Back to main menu", value: "back" },
         { name: "❌ Exit", value: "exit" },
       ],
     },

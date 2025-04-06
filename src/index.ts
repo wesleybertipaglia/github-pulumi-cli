@@ -1,18 +1,7 @@
 import { Command } from "commander";
-import {
-  listRepos,
-  getRepoDetails,
-  getRepoInsights,
-  createRepo,
-  updateRepo,
-  deleteRepo,
-} from "./github";
 import { loadGitHubToken } from "./pulumi";
-import {
-  showMainMenu,
-  promptRepoName,
-  promptRepoDescription,
-} from "./views/menu";
+import { showMainMenu } from "./views/menu.views";
+import { repositoryController } from "./controllers/repository.controller";
 
 const program = new Command();
 
@@ -26,53 +15,16 @@ if (!process.argv.slice(2).length) {
     const token = await loadGitHubToken();
 
     while (true) {
+      console.clear();
       const action = await showMainMenu();
 
-      console.clear();
-
       switch (action) {
-        case "list":
-          await listRepos(token);
-          break;
-
-        case "get": {
-          const repository = await promptRepoName();
-          console.clear();
-          await getRepoDetails(token, repository);
-          break;
-        }
-
-        case "insights": {
-          const repository = await promptRepoName();
-          console.clear();
-          await getRepoInsights(token, repository);
-          break;
-        }
-
-        case "create": {
-          const repository = await promptRepoName();
-          console.clear();
-          const description = await promptRepoDescription();
-          await createRepo(token, { name: repository, description });
-          break;
-        }
-
-        case "update": {
-          const repository = await promptRepoName();
-          const newName = await promptRepoName(true);
-          const newDescription = await promptRepoDescription(true);
-          console.clear();
-          await updateRepo(token, repository, {
-            name: newName,
-            description: newDescription,
-          });
-          break;
-        }
-
-        case "delete": {
-          const repository = await promptRepoName();
-          console.clear();
-          await deleteRepo(token, repository);
+        case "repository": {
+          const result = await repositoryController(token);
+          if (result === "exit") {
+            console.log("👋 Goodbye!");
+            process.exit(0);
+          }
           break;
         }
 
