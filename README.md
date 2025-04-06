@@ -56,18 +56,19 @@ ORG=<your_org>
 ### Running Interactive Menu
 
 ```bash
+# Run the CLI
 npm run dev
-```
 
-### Listing Repositories
-
-```bash
 # Select list repositories
 📚 GitHub CLI Menu - Choose an action
 ❯ 📦 List repositories
   🔍 Get repository details
   ❌ Exit
+```
 
+### Listing Repositories
+
+```bash
 # Example output
 📦 REPOSITORY LIST:
 
@@ -91,12 +92,6 @@ npm run dev
 ### Getting Repository Details
 
 ```bash
-# Select list repositories
-📚 GitHub CLI Menu - Choose an action
-  📦 List repositories
-❯ 🔍 Get repository details
-  ❌ Exit
-
 # Example output
 📦 REPOSITORY DETAILS:
 1
