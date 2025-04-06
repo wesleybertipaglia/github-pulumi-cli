@@ -4,6 +4,7 @@ import {
   getRepoDetails,
   getRepoInsights,
   createRepo,
+  updateRepo,
 } from "./github";
 import { loadGitHubToken } from "./pulumi";
 import {
@@ -52,6 +53,15 @@ if (!process.argv.slice(2).length) {
           console.clear();
           const description = await promptRepoDescription();
           await createRepo(token, repository, description);
+          break;
+        }
+
+        case "update": {
+          const repository = await promptRepoName();
+          const newName = await promptRepoName(true);
+          const newDescription = await promptRepoDescription(true);
+          console.clear();
+          await updateRepo(token, repository, newName, newDescription);
           break;
         }
 

@@ -140,3 +140,45 @@ export async function createRepo(
   console.log(`✅ Repository created`);
   detailsView(repo);
 }
+
+/**
+ * Updates an existing repository on GitHub.
+ *
+ * @param {string} token - The GitHub access token.
+ * @param {string} repository - The name of the repository to update.
+ * @param {string} [newName] - The new name for the repository.
+ * @param {string} [newDescription] - The new description for the repository.
+ */
+export async function updateRepo(
+  token: string,
+  repository: string,
+  newName?: string,
+  newDescription?: string
+) {
+  const owner = await getUsername(token);
+
+  const res = await fetch(
+    `https://api.github.com/repos/${owner}/${repository}`,
+    {
+      method: "PATCH",
+      headers: {
+        Authorization: `token ${token}`,
+        "User-Agent": "github-cli",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: newName || repository,
+        description: newDescription,
+      }),
+    }
+  );
+
+  if (!res.ok) {
+    console.error("❌ Failed to update repository:", res.statusText);
+    return;
+  }
+
+  const updated = (await res.json()) as any;
+  console.log(`✅ Repository updated to`);
+  detailsView(updated);
+}
