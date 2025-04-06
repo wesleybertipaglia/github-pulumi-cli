@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import { listAll } from "./views/repository";
 
 export async function listRepos(token: string) {
   const res = await fetch("https://api.github.com/user/repos", {
@@ -9,14 +10,10 @@ export async function listRepos(token: string) {
   });
 
   if (!res.ok) {
-    console.error("Error connecting to GitHub API:", res.statusText);
+    console.error("❌ Failed to connect to GitHub API:", res.statusText);
     return;
   }
 
-  const repos: any = await res.json();
-  console.log(`You have ${repos.length} repositories:`);
-
-  repos.forEach((repo: any) => {
-    console.log(`${repo.name} - ${repo.html_url}`);
-  });
+  const repos = (await res.json()) as any[];
+  listAll(repos);
 }
