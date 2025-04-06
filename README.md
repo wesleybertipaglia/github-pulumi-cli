@@ -53,16 +53,59 @@ ORG=<your_org>
 
 ## Usage
 
+### Running Interactive Menu
+
+```bash
+npm run dev
+```
+
 ### Listing Repositories
 
 ```bash
-npm run list
+# Select list repositories
+📚 GitHub CLI Menu - Choose an action
+❯ 📦 List repositories
+  🔍 Get repository details
+  ❌ Exit
+
+# Example output
+📦 REPOSITORY LIST:
+
+🔹 Repo #1
+   📌 Name: .github
+   📝 Description: BoilerLabs is your go-to source for reusable, high-quality boilerplates and code templates, helping developers build faster and more efficiently.
+   👤 Owner: boilerlabs
+   ⭐ Stars: 0   🍴 Forks: 0
+   🔒 Private: No 🌍
+   🔗 URL: https://github.com/boilerlabs/.github
+
+🔹 Repo #2
+   📌 Name: backend-challenges
+   📝 Description: A collection of coding challenges designed to enhance your back-end development skills.
+   👤 Owner: boilerlabs
+   ⭐ Stars: 32   🍴 Forks: 5
+   🔒 Private: No 🌍
+   🔗 URL: https://github.com/boilerlabs/backend-challenges
 ```
 
 ### Getting Repository Details
 
 ```bash
-npm run get -- <repo_name>
+# Select list repositories
+📚 GitHub CLI Menu - Choose an action
+  📦 List repositories
+❯ 🔍 Get repository details
+  ❌ Exit
+
+# Example output
+📦 REPOSITORY DETAILS:
+1
+   📌 Name: .github
+   📝 Description: BoilerLabs is your go-to source for reusable, high-quality boilerplates and code templates, helping developers build faster and more efficiently.
+   👤 Owner: boilerlabs
+   ⭐ Stars: 0   🍴 Forks: 0
+   🔒 Private: No 🌍
+   🔗 URL: https://github.com/boilerlabs/.github
 ```
 
 ## 🤝 Contributing
