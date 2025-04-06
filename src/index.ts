@@ -53,7 +53,7 @@ if (!process.argv.slice(2).length) {
           const repository = await promptRepoName();
           console.clear();
           const description = await promptRepoDescription();
-          await createRepo(token, repository, description);
+          await createRepo(token, { name: repository, description });
           break;
         }
 
@@ -62,7 +62,10 @@ if (!process.argv.slice(2).length) {
           const newName = await promptRepoName(true);
           const newDescription = await promptRepoDescription(true);
           console.clear();
-          await updateRepo(token, repository, newName, newDescription);
+          await updateRepo(token, repository, {
+            name: newName,
+            description: newDescription,
+          });
           break;
         }
 

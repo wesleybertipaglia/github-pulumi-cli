@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 import { insightsView, listAll } from "./views/repository";
 import { detailsView } from "./views/repository";
+import { CreateDto, Repository, UpdateDto } from "./types/repository";
 
 let cachedUsername: string | null = null;
 
@@ -39,7 +40,10 @@ async function getUsername(token: string): Promise<string> {
  * @param {string} repository - The repository name.
  * @returns {Promise<any>} - The repository details.
  */
-async function getRepoBySlug(token: string, repository: string) {
+async function getRepoBySlug(
+  token: string,
+  repository: string
+): Promise<Repository | null> {
   const owner = await getUsername(token);
 
   const repoRes = await fetch(
@@ -59,7 +63,8 @@ async function getRepoBySlug(token: string, repository: string) {
     return null;
   }
 
-  return await repoRes.json();
+  const repo = (await repoRes.json()) as Repository;
+  return repo;
 }
 
 /**
@@ -80,7 +85,7 @@ export async function listRepos(token: string) {
     return;
   }
 
-  const repos = (await res.json()) as any[];
+  const repos = (await res.json()) as Repository[];
   listAll(repos);
 }
 
@@ -113,11 +118,7 @@ export async function getRepoInsights(token: string, repository: string) {
  * @param {string} repository - The name of the new repository.
  * @param {string} [description] - An optional description for the repository.
  */
-export async function createRepo(
-  token: string,
-  repository: string,
-  description?: string
-) {
+export async function createRepo(token: string, data: CreateDto) {
   const res = await fetch("https://api.github.com/user/repos", {
     method: "POST",
     headers: {
@@ -125,10 +126,7 @@ export async function createRepo(
       "User-Agent": "github-cli",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      name: repository,
-      description: description || "",
-    }),
+    body: JSON.stringify(data),
   });
 
   if (!res.ok) {
@@ -136,8 +134,8 @@ export async function createRepo(
     return;
   }
 
-  const repo = (await res.json()) as any;
-  console.log(`✅ Repository created`);
+  const repo = (await res.json()) as Repository;
+  console.log(`\n🎉 Repository ${repo.name} created successfully!`);
   detailsView(repo);
 }
 
@@ -152,8 +150,7 @@ export async function createRepo(
 export async function updateRepo(
   token: string,
   repository: string,
-  newName?: string,
-  newDescription?: string
+  data: UpdateDto
 ) {
   const owner = await getUsername(token);
 
@@ -166,10 +163,7 @@ export async function updateRepo(
         "User-Agent": "github-cli",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name: newName || repository,
-        description: newDescription,
-      }),
+      body: JSON.stringify(data),
     }
   );
 
@@ -178,9 +172,9 @@ export async function updateRepo(
     return;
   }
 
-  const updated = (await res.json()) as any;
-  console.log(`✅ Repository updated to`);
-  detailsView(updated);
+  const repo = (await res.json()) as Repository;
+  console.log(`\n🎉 Repository ${repo.name} updated successfully!`);
+  detailsView(repo);
 }
 
 /**
