@@ -73,3 +73,32 @@ export function detailsView(repo: any) {
     `   🔗 ${chalk.bold("URL:")} ${chalk.underline(repo.html_url)}\n`
   );
 }
+
+/**
+ * Render the insights of a repository.
+ */
+export function insightsView(repo: any) {
+  console.log(chalk.green.bold(`📊 Repository Insights: ${repo.name}\n`));
+
+  console.log(`⭐ Stars            : ${chalk.yellow(repo.stargazers_count)}`);
+  console.log(`🍴 Forks            : ${chalk.cyan(repo.forks_count)}`);
+  console.log(`🐛 Open Issues      : ${chalk.red(repo.open_issues_count)}`);
+  console.log(
+    `✅ Open Pull Requests: ${chalk.magenta(repo.open_issues_count)}`
+  );
+  console.log(
+    `👀 Watchers         : ${chalk.blue(
+      repo.subscribers_count || repo.watchers_count
+    )}`
+  );
+  console.log(
+    `📅 Created At       : ${chalk.white(
+      new Date(repo.created_at).toLocaleDateString()
+    )}`
+  );
+  console.log(
+    `🕓 Last Updated     : ${chalk.white(
+      new Date(repo.updated_at).toLocaleDateString()
+    )}`
+  );
+}

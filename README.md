@@ -13,7 +13,7 @@ Github Pulumi CLI is a command line interface for managing GitHub resources usin
 ## Features
 
 - [x] Create and manage GitHub repositories
-- [ ] View GitHub repository insights
+- [x] View GitHub repository insights
 - [ ] Manage GitHub teams and their members
 - [ ] Create and manage GitHub issues
 - [ ] Manage GitHub pull requests
@@ -94,7 +94,7 @@ npm run dev
 ```bash
 # Example output
 📦 REPOSITORY DETAILS:
-1
+
    📌 Name: .github
    📝 Description: BoilerLabs is your go-to source for reusable, high-quality boilerplates and code templates, helping developers build faster and more efficiently.
    👤 Owner: boilerlabs

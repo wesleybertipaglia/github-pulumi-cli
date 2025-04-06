@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { listRepos, getRepoBySlug } from "./github";
+import { listRepos, getRepoDetails, getRepoInsights } from "./github";
 import { loadGitHubToken } from "./pulumi";
 import { showMainMenu, promptRepoName } from "./views/menu";
 
@@ -23,7 +23,7 @@ program
   .description("Get details of a specific GitHub repository by name")
   .action(async (name: string) => {
     const token = await loadGitHubToken();
-    await getRepoBySlug(token, name);
+    await getRepoDetails(token, name);
   });
 
 if (!process.argv.slice(2).length) {
@@ -43,7 +43,14 @@ if (!process.argv.slice(2).length) {
         case "get": {
           const name = await promptRepoName();
           console.clear();
-          await getRepoBySlug(token, name);
+          await getRepoDetails(token, name);
+          break;
+        }
+
+        case "insights": {
+          const name = await promptRepoName();
+          console.clear();
+          await getRepoInsights(token, name);
           break;
         }
 

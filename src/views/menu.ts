@@ -1,6 +1,8 @@
 import inquirer from "inquirer";
 
-export async function showMainMenu(): Promise<"list" | "get" | "exit"> {
+export async function showMainMenu(): Promise<
+  "list" | "get" | "insights" | "exit"
+> {
   const { option } = await inquirer.prompt([
     {
       type: "list",
@@ -9,6 +11,7 @@ export async function showMainMenu(): Promise<"list" | "get" | "exit"> {
       choices: [
         { name: "📦 List repositories", value: "list" },
         { name: "🔍 Get repository details", value: "get" },
+        { name: "📊 View repository insights", value: "insights" },
         { name: "❌ Exit", value: "exit" },
       ],
     },
