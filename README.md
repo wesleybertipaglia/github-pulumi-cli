@@ -59,6 +59,12 @@ ORG=<your_org>
 npm run list
 ```
 
+### Getting Repository Details
+
+```bash
+npm run get -- <repo_name>
+```
+
 ## 🤝 Contributing
 
 Contributions are welcome! If you have any suggestions or improvements, please open an issue or a pull request.

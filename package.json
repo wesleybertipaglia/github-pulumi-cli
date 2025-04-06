@@ -6,7 +6,8 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "list": "ts-node src/index.ts list"
+    "list": "ts-node src/index.ts list",
+    "get": "ts-node src/index.ts get"
   },
   "keywords": [],
   "author": "",

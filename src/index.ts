@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { listRepos } from "./github";
+import { listRepos, getRepoBySlug } from "./github";
 import { loadGitHubToken } from "./pulumi";
 
 const program = new Command();
@@ -18,6 +18,18 @@ program
       await listRepos(token);
     } catch (err) {
       console.error("Error listing repositories:", err);
+    }
+  });
+
+program
+  .command("get <name>")
+  .description("Get details of a specific GitHub repository by name (slug)")
+  .action(async (name: string) => {
+    try {
+      const token = await loadGitHubToken();
+      await getRepoBySlug(token, name);
+    } catch (err) {
+      console.error("Error fetching repository:", err);
     }
   });
 
